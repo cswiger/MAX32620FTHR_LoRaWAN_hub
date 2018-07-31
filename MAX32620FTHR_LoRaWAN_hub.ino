@@ -45,26 +45,14 @@
 MAX17055 sensor;
 Adafruit_HTU21DF htu = Adafruit_HTU21DF();
 
-/* registered with web console    https://console.thethingsnetwork.org/applications  login chucksiot@swigerco.com
+/* registered with web console    https://console.thethingsnetwork.org/applications
 
 From the console:
-Device EUI:  00C083BF6BDF2C42
-App EUI:  70B3D57EF0001D38
-Device address:  26011054          <-- this changed after running ttnctl below
-Network session key:  58458C50E1BA4FCD0289B1D1EA72C7C1      <-- no longer valid after running ttnctl below
-Application session key:  7338D065854BD178677F28AF67562214  <-- no longer valid after running ttnctl below
-
-I had a set of keys from the console, looks like they were just needlessly changed again in this console command:
-
-from ttnctl:
-   INFO Using Application AppEUI=70B3D57ED0000087 AppID=70b3d57ed0000087
-   INFO Generating random NwkSKey... 
-   INFO Generating random AppSKey... 
-   INFO Discovering Handler... Handler=ttn-handler-eu
-   INFO Connecting with Handler... Handler=eu.thethings.network:1904
-   INFO Requesting DevAddr for device... 
-   INFO Personalized device AppID=70b3d57ed0000087  AppSKey=CB3A1056BBC6F16C119CF22552E73FAD DevAddr=26011A23 DevID=maxmultichrp1 NwkSKey=FBFD527291ABA9F60DBE68B6038720BA   
-
+Device EUI:  0123456789ABCDEF
+App EUI:  0123456789ABCDEF
+Device address:  01234567          
+Network session key:  00112233445566778899AABBCCDDEEFF
+Application session key:  FFEEDDCCBBAA99887766554433221100
 
  LoRaWAN NwkSKey, network session key
     UPDATE WITH YOUR TTN KEY!!
