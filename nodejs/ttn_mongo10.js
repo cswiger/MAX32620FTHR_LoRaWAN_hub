@@ -28,7 +28,7 @@ function insertEvent(topic,payload) {
               else
                  { return 1 }
               var obj = JSON.parse(payload.toString());
-              console.log(obj['payload']);
+              console.log(obj['payload_raw']);
               var coll = topic.split('/')[1]+'_'+topic.split('/')[2]+'_rh';
               collection = db.collection(coll);
               collection.insert(
