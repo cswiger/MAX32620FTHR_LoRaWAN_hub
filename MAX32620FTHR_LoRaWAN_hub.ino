@@ -170,7 +170,8 @@ void setup() {
     sensor.setCapacity(1800);   // sensor reports capacity 1800mAH OK
     
     // Wire.begin();     // included in HTU library
-    htu.begin();
+    htu.begin();        // Wire.setClock is in the htu.begin() code so the first access is 100K - not 400K then switched to 100K
+    // Wire.setClock(100000);	// it's going to be a long buss with many devices, so no hurry, we want reliability
     // init Chirp! Altho this actually does nothing
     writeI2CRegister8bit(0x20, 6); //  reset
 
