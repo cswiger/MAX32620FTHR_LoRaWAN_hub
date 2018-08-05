@@ -83,7 +83,7 @@ void os_getArtEui (u1_t* buf) { }
 void os_getDevEui (u1_t* buf) { }
 void os_getDevKey (u1_t* buf) { }
 
-char mydata[8];
+char mydata[10];
 static osjob_t sendjob;
 unsigned long lastMilli = 0;
 
@@ -161,7 +161,9 @@ void do_send(osjob_t* j){
         memcpy(mydata+5,&temp,sizeof(temp));          // put it in byte 5
         uint8_t hum = (uint8_t)(htu.readHumidity()+0.5);   // get 1 byte of humidity, rounded
         memcpy(mydata+6,&hum,sizeof(hum));             // put it in byte 6
-        LMIC_setTxData2(1, (uint8_t*)mydata, 7, 0);  //  write 7 bytes over LoRaWAN
+        uint16_t lux = analogRead(A0);                // read light sensor 2 bytes
+        memcpy(mydata+7,&lux,sizeof(lux));               // put light in bytes 7&8
+        LMIC_setTxData2(1, (uint8_t*)mydata, 9, 0);  //  write 7 bytes over LoRaWAN
         Serial.println(F("Packet queued"));
     }
     // Next TX is scheduled after TX_COMPLETE event.

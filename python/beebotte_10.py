@@ -18,6 +18,7 @@ chirp2 = ord(val[2])+256*ord(val[3])
 soc = ord(val[4])
 temp = ord(val[5])
 hum = ord(val[6])
+lux = ord(val[7])+256*ord(val[8])
 
 bclient = BBT("your_beebotte_api_key_here","your_beebotte_secret_key_here")
 
@@ -36,4 +37,6 @@ resTemp.write(temp)
 resHum = Resource(bclient, 'maxmultichirp','Humidity')
 resHum.write(hum)
 
+resLux = Resource(bclient, 'maxmultichirp','light')
+resLux.write(lux)
 
