@@ -45,36 +45,25 @@
 MAX17055 sensor;
 Adafruit_HTU21DF htu = Adafruit_HTU21DF();
 
-/* registered with web console    https://console.thethingsnetwork.org/applications  login chucksiot@swigerco.com
+/* registered with web console    https://console.thethingsnetwork.org/applications
 
 From the console:
-Device EUI:  00C083BF6BDF2C42
-App EUI:  70B3D57EF0001D38
-Device address:  26011054          <-- this changed after running ttnctl below
-Network session key:  58458C50E1BA4FCD0289B1D1EA72C7C1      <-- no longer valid after running ttnctl below
-Application session key:  7338D065854BD178677F28AF67562214  <-- no longer valid after running ttnctl below
-
-I had a set of keys from the console, looks like they were just needlessly changed again in this console command:
-
-from ttnctl:
-   INFO Using Application AppEUI=70B3D57ED0000087 AppID=70b3d57ed0000087
-   INFO Generating random NwkSKey... 
-   INFO Generating random AppSKey... 
-   INFO Discovering Handler... Handler=ttn-handler-eu
-   INFO Connecting with Handler... Handler=eu.thethings.network:1904
-   INFO Requesting DevAddr for device... 
-   INFO Personalized device AppID=70b3d57ed0000087  AppSKey=CB3A1056BBC6F16C119CF22552E73FAD DevAddr=26011A23 DevID=maxmultichrp1 NwkSKey=FBFD527291ABA9F60DBE68B6038720BA   
-
+Device EUI:  0123456789ABCDEF
+App EUI:  0123456789ABCDEF
+Device address:  01234567          
+Network session key:  00112233445566778899AABBCCDDEEFF
+Application session key:  FFEEDDCCBBAA99887766554433221100
 
  LoRaWAN NwkSKey, network session key
+    UPDATE WITH YOUR TTN KEY!!
  */ 
-static const PROGMEM u1_t NWKSKEY[16] = { 0xFB, 0xFD, 0x52, 0x72, 0x91, 0xAB, 0xA9, 0xF6, 0x0D, 0xBE, 0x68, 0xB6, 0x03, 0x87, 0x20, 0xBA };
+static const PROGMEM u1_t NWKSKEY[16] = { 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF };
 
-// LoRaWAN AppSKey, application session key
-static const u1_t PROGMEM APPSKEY[16] = { 0xCB, 0x3A, 0x10, 0x56, 0xBB, 0xC6, 0xF1, 0x6C, 0x11, 0x9C, 0xF2, 0x25, 0x52, 0xE7, 0x3F, 0xAD };
+// LoRaWAN AppSKey, application session key  -- UPDATE WITH YOUR TTN KEY!!
+static const u1_t PROGMEM APPSKEY[16] = { 0xFF, 0xEE, 0xDD, 0xCC, 0xBB, 0xAA, 0x99, 0x88, 0x77, 0x66, 0x55, 0x44, 0x33, 0x22, 0x11, 0x00 };
 
-// LoRaWAN end-device address (DevAddr)
-static const u4_t DEVADDR = 0x26011A23 ; 
+// LoRaWAN end-device address (DevAddr)   -- UPDATE WITH YOUR TTN DEVICE ADDRESS!! 
+static const u4_t DEVADDR = 0x01234567 ; 
 
 // These callbacks are only used in over-the-air activation, so they are
 // left empty here (we cannot leave them out completely unless
@@ -183,7 +172,8 @@ void setup() {
     sensor.setCapacity(1800);   // sensor reports capacity 1800mAH OK
     
     // Wire.begin();     // included in HTU library
-    htu.begin();
+    htu.begin();        // Wire.setClock is in the htu.begin() code so the first access is 100K - not 400K then switched to 100K
+    // Wire.setClock(100000);	// it's going to be a long buss with many devices, so no hurry, we want reliability
     // init Chirp! Altho this actually does nothing
     writeI2CRegister8bit(0x20, 6); //  reset
 
