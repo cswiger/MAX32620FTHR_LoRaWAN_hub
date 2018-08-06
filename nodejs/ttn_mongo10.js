@@ -39,6 +39,7 @@ function insertEvent(topic,payload) {
                     else { console.log("Update callback - closing db");
                            db.close();
                            // call script to update beebotte dashboard with latest data here instead of async in cron
+                           // note - this is called on ANY TTN insert db event
                            exec('/home/centos/pyscripts/beebotte_11.py').unref(); }
               });  // end of insert block
             });   // end of request block
