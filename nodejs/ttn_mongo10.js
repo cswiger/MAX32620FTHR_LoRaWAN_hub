@@ -5,6 +5,7 @@
 var mqtt=require('/usr/lib/node_modules/mqtt')
 var mongodb=require('/usr/lib/node_modules/mongodb');
 var request = require('/usr/lib/node_modules/request')
+const exec = require("child_process").exec
 
 var mongodbClient=mongodb.MongoClient;
 var mongodbURI='mongodb://mqtt:password@127.0.0.1:27017/data'
@@ -36,7 +37,9 @@ function insertEvent(topic,payload) {
                  function(err,docs) {
                     if(err) { console.log("Insert fail" + err); } // Improve error handling
                     else { console.log("Update callback - closing db");
-                           db.close() }
+                           db.close();
+                           // call script to update beebotte dashboard with latest data here instead of async in cron
+                           exec('/home/centos/pyscripts/beebotte_11.py').unref(); }
               });  // end of insert block
             });   // end of request block
           }      // end of mongo  connect else block
