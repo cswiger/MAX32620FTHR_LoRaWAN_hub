@@ -49,6 +49,9 @@ function insertEvent(topic,payload) {
 
 
 // put this in a function we can call on event of going offline
+// the username here is your Application ID, the password is the Access Key
+// Also make sure your queue is in the right part of the world and matches your app and gateway
+// I show eu.thethings.network but later had to change it to mqtt://us-west.thethings.network  when data stopped flowing!
 function connectmq() {
    client=mqtt.connect('mqtt://eu.thethings.network',{username:"your_ttn_username_here",password:"your_ttn_password_here"});
 }
